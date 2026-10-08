@@ -1,0 +1,7 @@
+id=reqable-nomount
+name=Reqable NoMount
+version=v1.0.0
+versionCode=1
+author=meltartica
+description=Inject the Reqable CA certificate using NoMount, eliminating traditional mounts.
+updateJson=https://github.com/meltartica/reqable-nomount/raw/master/update.json
