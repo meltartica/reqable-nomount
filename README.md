@@ -31,7 +31,10 @@ nothing can diverge.
 
 Nothing else to configure. The Reqable module stays **installed** — it holds the
 certificate — but its mount stage is switched off, and re-switched-off on every
-boot so a Reqable update is handled automatically.
+boot so a Reqable update is handled automatically. Its description is rewritten
+to `⚠️ Keep disabled. Injected natively via NoMount.` so the module list explains
+why it is off; the original `module.prop` is kept beside it as `err` and restored
+on uninstall.
 
 ## How it works
 
@@ -46,8 +49,9 @@ nm rule add /apex/com.android.conscrypt/cacerts/<cert>  <reqable cert>
 ```
 
 `service.sh` re-asserts them once the system has settled, and cleans up a
-leftover `tmpfs` from the first boot after install. `uninstall.sh` removes the
-redirects and hands `reqable-magisk` its mount stage back.
+leftover `tmpfs` from the first boot after install. `uninstall.sh` restores the
+original `module.prop`, removes the redirects, and hands `reqable-magisk` its
+mount stage back.
 
 ## Credits
 

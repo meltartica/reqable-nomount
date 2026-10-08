@@ -15,6 +15,11 @@ NM_BIN=/data/adb/modules/nomount/bin/nm
 [ -x "$NM_BIN" ] || exit 0
 [ -d "$REQABLE_DIR" ] || exit 0
 
+if [ -d "$REQABLE_DIR" ]; then
+    . "$MODDIR/util.sh"
+    set_reqable_desc "$REQABLE_DIR" "Keep disabled. Injected natively via NoMount."
+fi
+
 until [ "$(getprop sys.boot_completed)" = 1 ]; do sleep 1; done
 
 for pid in 1 $(pidof zygote64) $(pidof zygote); do

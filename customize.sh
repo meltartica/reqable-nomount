@@ -27,8 +27,11 @@ if [ ! -d "$REQABLE_DIR/system/etc/security/cacerts" ]; then
     abort ""
 fi
 
-# Stop reqable-magisk's own mount stage immediately.
+# Stop reqable-magisk's own mount stage immediately and show the status in the
+# module list.
 : > "$REQABLE_DIR/disable"
+. "$MODPATH/util.sh"
+set_reqable_desc "$REQABLE_DIR" "Keep disabled. Injected natively via NoMount."
 
 chmod +x "$MODPATH/post-fs-data.sh" "$MODPATH/service.sh" "$MODPATH/uninstall.sh"
 

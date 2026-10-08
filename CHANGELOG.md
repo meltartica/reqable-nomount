@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.0.1
+
+Show status on the Reqable module, like morphe-nomount does.
+
+- Rewrites `reqable-magisk`'s `module.prop` description to
+  `⚠️ Keep disabled. Injected natively via NoMount.` so the module list explains
+  why it is switched off. The original `module.prop` is kept beside it as `err`.
+- `uninstall.sh` restores that original `module.prop` and re-enables the module,
+  so the description does not stay rewritten after removal.
+
 ## v1.0.0
 
 First release.

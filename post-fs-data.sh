@@ -27,9 +27,12 @@ NM_BIN=/data/adb/modules/nomount/bin/nm
 
 [ -x "$NM_BIN" ] || exit 0
 
-# Keep reqable-magisk from running its own post-fs-data.sh / service.sh.
+# Keep reqable-magisk from running its own post-fs-data.sh / service.sh, and say
+# so in the module list.
 if [ -d "$REQABLE_DIR" ]; then
     : > "$REQABLE_DIR/disable"
+    . "$MODDIR/util.sh"
+    set_reqable_desc "$REQABLE_DIR" "Keep disabled. Injected natively via NoMount."
 fi
 
 # If the reqable script already ran this boot, undo the tmpfs and the APEX bind

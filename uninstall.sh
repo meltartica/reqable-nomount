@@ -1,12 +1,16 @@
 #!/system/bin/sh
 #
-# uninstall.sh - drop the CA redirects and hand reqable-magisk its mount stage
-# back, so removing this module leaves reqable-magisk working on its own.
+# uninstall.sh - drop the CA redirects, restore reqable-magisk's own
+# description, and hand its mount stage back, so removing this module leaves
+# reqable-magisk working on its own.
 
+MODDIR=${MODDIR:-${0%/*}}
 REQABLE_DIR=/data/adb/modules/reqable-magisk
 NM_BIN=/data/adb/modules/nomount/bin/nm
 
 if [ -d "$REQABLE_DIR" ]; then
+    . "$MODDIR/util.sh"
+    restore_reqable_desc "$REQABLE_DIR"
     rm -f "$REQABLE_DIR/disable"
 fi
 

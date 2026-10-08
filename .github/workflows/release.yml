@@ -36,7 +36,7 @@ jobs:
         run: |
           set -e
           # A CR anywhere in a shebang or a command silently breaks on Android.
-          if grep -rlP '\r' module.prop customize.sh post-fs-data.sh service.sh uninstall.sh META-INF; then
+          if grep -rlP '\r' module.prop customize.sh util.sh post-fs-data.sh service.sh uninstall.sh META-INF; then
             echo "::error::CRLF found in the files above - Android shells cannot run them"
             exit 1
           fi
@@ -166,12 +166,12 @@ jobs:
           # git stores these as 100644 (core.filemode cannot see the bit on
           # Windows), but Magisk execs update-binary and the managers exec the
           # boot scripts. Set the bits here rather than trust the checkout.
-          chmod +x customize.sh post-fs-data.sh service.sh uninstall.sh \
+          chmod +x customize.sh util.sh post-fs-data.sh service.sh uninstall.sh \
                    META-INF/com/google/android/update-binary
           # Explicit file list. Everything at the ZIP root, which is what the
           # installer expects; repo scaffolding stays out.
           zip -r -X "dist/${ASSET}" \
-            module.prop customize.sh post-fs-data.sh service.sh uninstall.sh \
+            module.prop customize.sh util.sh post-fs-data.sh service.sh uninstall.sh \
             LICENSE META-INF
           unzip -l "dist/${ASSET}"
 
@@ -181,7 +181,7 @@ jobs:
           unzip -Z1 "dist/${ASSET}" > /tmp/entries
           # module.prop must be at the ZIP root or the manager ignores the module
           grep -qx 'module.prop' /tmp/entries
-          for f in customize.sh post-fs-data.sh service.sh uninstall.sh; do
+          for f in customize.sh util.sh post-fs-data.sh service.sh uninstall.sh; do
             grep -qx "$f" /tmp/entries
           done
           grep -qx 'META-INF/com/google/android/update-binary' /tmp/entries
